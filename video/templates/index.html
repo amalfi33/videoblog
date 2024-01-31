@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %} Главая страница {% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="line"><b>Популярные</b></h1>
+    <div class="row">
+    <div class="row row-cols-1 row-cols-md-5 g-3">
+    {% for post in featureds %}
+    <div class="col">
+    <section class="articles">
+      <article>
+        <div class="article-wrapper">
+          <figure>
+            <a href="{{post.get_link}}">
+            <img src="{{post.preview.url}}" alt="" />
+          </figure>
+          <div class="article-body">
+            <h2>{{post.title}}</h2>
+            <p class="text-end">
+              {{post.date}}
+              <br>
+              {{post.author}}
+            </p>
+          </div>
+          </a>
+        </div>
+      </article>
+    </section>
+    </div>
+    {% endfor %}
+  </div>
+    <h1 class="line"><b>Видео</b></h1>
+    <div class="row">
+      <div class="row row-cols-md-3"> 
+    {% for post in posts %}
+    <div class="col">
+      <section class="articles">
+        <article>
+          <div class="article-wrapper">
+            <figure>
+              <a href="{{post.get_link}}">
+              <img src="{{post.preview.url}}" alt="" />
+            </figure>
+            <div class="article-body">
+              <h2>{{post.title}}</h2>
+              <p class="text-end">
+                {{post.date}}
+                <br>
+                {{post.author}}
+              </p>
+            </div>
+            </a>
+          </div>
+        </article>
+      </section>
+      </div>
+    {% endfor %}
+    </div>
+    <nav aria-label="...">
+      <ul class="pagination pagination-lg">
+        <li class="page-item active" aria-current="page">
+          <span class="page-link">1</span>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+      </ul>
+    </nav>
+  </div>
+    <h1 class="line"><b>Категории</b></h1>
+    <div class="row mt-3 row-cols-1 row-cols-md-5 g-4">
+      {% for category in categories %}
+      <div class="col">
+        <div class="card cover-card">
+         <a href="{{category.get_link}}">
+          <div class="card-body">
+            <h5 class="card-title" style="text-align: center;">
+              <a href="{{category.get_link}}">{{category.title}}</a>
+            </h5>
+          </div>
+        </div>
+      </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}

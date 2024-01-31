@@ -1,0 +1,83 @@
+{% extends 'base.html'%}
+{% block title %} {{post.title}} {% endblock %}
+{% block content %}
+<div class = 'row m-4'>
+  <div class="col-md-8">
+    <video controls sc>
+      <source src='{{post.video.url}}' type="video/mp4">
+    </video>
+      <h1 class="line">Комментарии</h1>
+      <p class="text-end">Коментариев: {{post.comment_set.count}}</p>
+      {% if request.user.is_authenticated %}
+      <form action="{% url 'comment' post.slug %}" method="POST">
+          {% csrf_token %}
+          <textarea name="text" id="" cols="30" rows="10"></textarea> 
+          <button>Отправить</button>
+      </form>
+      {% else %}
+      <p>
+          Что бы написать коментарий вы должны 
+          <a href="{% url 'login_site' %}">Войти</a>
+           или 
+           <a href="{% url 'register' %}">Зарегистрироваться</a>
+          </p>
+      {% endif %}
+      <div class="row row-cols-1 row-cols-md-1 g-4">
+          {% for comment in post.comment_set.all %}
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{comment.author.username}}</h5>
+                <p class="card-text">{{comment.text}}</p>
+                <p class="card-text">{{comment.date|date:'d-F-Y'}}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+  </div>
+  </div>
+  <div class="col-md-4">
+      <div class="description">
+            <div>
+              <b class="m-4">
+                {{post.title}}
+              </b>
+            </div>
+            <div class="m-2">
+           <p>
+            {{post.description}}
+           </p>
+          </div>
+      </div>
+      {% if user.is_superuser or request.user == post.author %}
+          <a href="{% url 'post_delete' post.slug %}">
+            <button class="btn btn-danger">Удалить</button>
+          </a>
+          {% endif %} 
+      {% if request.user == post.author %}
+    <a href="{% url 'edit_post' post.slug %}">
+      <button class="btn btn-primary">Изменить</button>
+    </a>
+      {% endif %}
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <a href="{{post.get_link}}">
+            <img src="{{post.preview.url}}" class="img-fluid rounded-start" style="width: 200px; height: 155px;" alt="...">
+          </a>
+          </div>
+          <div class="col-md-8">
+            <a href="{{post.get_link}}">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <p class="card-text">{{post.title}}</p>
+              <p><small class="text-bode"></small></p>
+            </div>
+            <p class="card-text m-2"><small class="text-body-secondary">{{post.author}} {{post.date}}</small></p>
+          </div>
+        </a>
+        </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

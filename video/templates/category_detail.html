@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %} 
+ {{ category.title}}
+ {% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="line">{{category.title}}</h1>
+      {% for post in category.post_set.all %}
+
+        <div class="col">
+          <section class="articles">
+            <article>
+              <div class="article-wrapper">
+                <figure>
+                  <a href="{{post.get_link}}">
+                  <img src="{{post.preview.url}}" alt="" />
+                </figure>
+                <div class="article-body">
+                  <h2>{{post.title}}</h2>
+                  <p class="text-end">
+                    {{post.date}}
+                    <br>
+                    {{post.author}}
+                  </p>
+                </div>
+                </a>
+              </div>
+            </article>
+          </section>
+          </div>
+        {% endfor %}
+{% endblock %}

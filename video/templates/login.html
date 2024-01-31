@@ -1,0 +1,43 @@
+
+{% load static %}
+ </body> -->
+
+</html>
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Авторизация</title>
+  <link rel="stylesheet" href="{% static 'css/login.css'%}">
+
+</head>
+<body>
+  <!-- artial:index.partial.html -->
+<body>
+  <section class="container">
+    <div class="login-container">
+      <div class="circle circle-one"></div>
+      <div class="form-container">
+        <img src="{% static 'img/ghost.png'%}" alt="illustration" class="illustration" />
+        <h1 class="opacity">Войти</h1>
+        <form action="{% url 'login_site' %}" method="POST">
+            {% csrf_token %}
+          <input type="text" placeholder="Логин" name="username"/>
+          <input type="password" placeholder="Пароль" name="password"/>
+          <button class="opacity" type="submit" >Отправить</button>
+
+        </form>
+        <div class="register-forget opacity">
+            <a href="{% url 'register' %}">Регистрация</a>
+        </div>
+      </div>
+      <div class="circle circle-two"></div>
+    </div>
+  </section>
+</body>
+<!-- partial -->
+  <script  src="{% static 'js/login.js'%}"></script>
+
+</body>
+</html>
+            
